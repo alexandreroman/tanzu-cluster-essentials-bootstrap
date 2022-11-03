@@ -1,0 +1,35 @@
+name: Create a release from a tag
+
+on:
+  push:
+    tags:
+    - '*'
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: vmware-tanzu/carvel-setup-action@v1
+    - name: Log in to the container registry
+      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build and deploy image
+      run: make all
+    - name: Create release archive
+      uses: thedoctor0/zip-release@0.6.2
+      with:
+        directory: out
+        filename: ../tanzu-cluster-essentials-bootstrap.zip
+    - uses: ncipollo/release-action@v1.11.1
+      with:
+        artifacts: tanzu-cluster-essentials-bootstrap.zip

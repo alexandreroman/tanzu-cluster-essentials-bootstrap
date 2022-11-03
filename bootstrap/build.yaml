@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: bootstrap
+  namespace: tanzu-cluster-essentials-bootstrap
+  labels:
+    app.kubernetes.io/name: bootstrap
+    app.kubernetes.io/part-of: tanzu-cluster-essentials-bootstrap
+spec:
+  backoffLimit: 3
+  activeDeadlineSeconds: 120
+  ttlSecondsAfterFinished: 300
+  template:
+    spec:
+      restartPolicy: Never
+      serviceAccount: bootstrap-sa
+      containers:
+      - name: bootstrap
+        image: tanzu-cluster-essentials-bootstrap
+        securityContext:
+          runAsUser: 1000
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+        env:
+        # Relies on Cluster Essentials for VMware Tanzu v1.3.0.
+        - name: INSTALL_BUNDLE
+          value: registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:54bf611711923dccd7c7f10603c846782b90644d48f1cb570b43a082d18e23b9
+        - name: INSTALL_REGISTRY_HOSTNAME
+          value: registry.tanzu.vmware.com
+        envFrom:
+        - secretRef:
+            name: bootstrap-credentials
+---
+apiVersion: kbld.k14s.io/v1alpha1
+kind: Config
+sources:
+- image: tanzu-cluster-essentials-bootstrap
+  path: bootstrap
+destinations:
+- image: tanzu-cluster-essentials-bootstrap
+  newImage: ghcr.io/alexandreroman/tanzu-cluster-essentials-bootstrap
