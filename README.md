@@ -32,7 +32,7 @@ and edit accordingly:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: bootstrap-credentials
+  name: tanzu-cluster-essentials-bootstrap-credentials
   namespace: tanzu-cluster-essentials-bootstrap
 type: Opaque
 stringData:

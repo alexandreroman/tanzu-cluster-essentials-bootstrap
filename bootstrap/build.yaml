@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: bootstrap
+  name: tanzu-cluster-essentials-bootstrap
   namespace: tanzu-cluster-essentials-bootstrap
   labels:
     app.kubernetes.io/name: bootstrap
@@ -13,7 +13,7 @@ spec:
   template:
     spec:
       restartPolicy: Never
-      serviceAccount: bootstrap-sa
+      serviceAccount: tanzu-cluster-essentials-bootstrap-sa
       containers:
       - name: bootstrap
         image: tanzu-cluster-essentials-bootstrap
@@ -31,7 +31,7 @@ spec:
           value: registry.tanzu.vmware.com
         envFrom:
         - secretRef:
-            name: bootstrap-credentials
+            name: tanzu-cluster-essentials-bootstrap-credentials
 ---
 apiVersion: kbld.k14s.io/v1alpha1
 kind: Config
