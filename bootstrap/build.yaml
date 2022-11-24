@@ -7,9 +7,9 @@ metadata:
     app.kubernetes.io/name: bootstrap
     app.kubernetes.io/part-of: tanzu-cluster-essentials-bootstrap
 spec:
-  backoffLimit: 3
-  activeDeadlineSeconds: 120
-  ttlSecondsAfterFinished: 300
+  backoffLimit: 1
+  activeDeadlineSeconds: 1800
+  ttlSecondsAfterFinished: 120
   template:
     spec:
       restartPolicy: Never
