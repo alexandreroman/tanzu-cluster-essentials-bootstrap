@@ -1,11 +1,11 @@
 FROM ubuntu:jammy AS builder
 RUN apt-get update && apt-get install -y wget
 
-RUN wget -O /tmp/kubectl https://dl.k8s.io/release/v1.25.3/bin/linux/amd64/kubectl && chmod +x /tmp/kubectl
-RUN wget -O /tmp/ytt https://github.com/vmware-tanzu/carvel-ytt/releases/download/v0.43.0/ytt-linux-amd64 && chmod +x /tmp/ytt
-RUN wget -O /tmp/kbld https://github.com/vmware-tanzu/carvel-kbld/releases/download/v0.35.0/kbld-linux-amd64 && chmod +x /tmp/kbld
-RUN wget -O /tmp/imgpkg https://github.com/vmware-tanzu/carvel-imgpkg/releases/download/v0.33.0/imgpkg-linux-amd64 && chmod +x /tmp/imgpkg
-RUN wget -O /tmp/kapp https://github.com/vmware-tanzu/carvel-kapp/releases/download/v0.53.0/kapp-linux-amd64 && chmod +x /tmp/kapp
+RUN wget -O /tmp/kubectl https://dl.k8s.io/release/v1.26.1/bin/linux/amd64/kubectl && chmod +x /tmp/kubectl
+RUN wget -O /tmp/ytt https://github.com/vmware-tanzu/carvel-ytt/releases/download/v0.44.3/ytt-linux-amd64 && chmod +x /tmp/ytt
+RUN wget -O /tmp/kbld https://github.com/vmware-tanzu/carvel-kbld/releases/download/v0.36.4/kbld-linux-amd64 && chmod +x /tmp/kbld
+RUN wget -O /tmp/imgpkg https://github.com/vmware-tanzu/carvel-imgpkg/releases/download/v0.33.1/imgpkg-linux-amd64 && chmod +x /tmp/imgpkg
+RUN wget -O /tmp/kapp https://github.com/vmware-tanzu/carvel-kapp/releases/download/v0.54.3/kapp-linux-amd64 && chmod +x /tmp/kapp
 
 FROM ubuntu:jammy
 RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates && apt-get clean && /bin/rm -rf /var/lib/apt/lists/*
