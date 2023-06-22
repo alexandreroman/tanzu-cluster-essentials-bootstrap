@@ -2,3 +2,4 @@
 out
 _bootstrap.yaml
 *.zip
+.vscode
