@@ -24,9 +24,9 @@ spec:
             cpu: "500m"
             memory: "256Mi"
         env:
-        # Relies on Cluster Essentials for VMware Tanzu v1.5.1.
+        # Relies on Cluster Essentials for VMware Tanzu v1.6.0.
         - name: INSTALL_BUNDLE
-          value: registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:c7b0988cf3e982625287b241db5d78c30780886dfe9ada01559bb5cd341e6181
+          value: registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:54e516b5d088198558d23cababb3f907cd8073892cacfb2496bb9d66886efe15
         - name: INSTALL_REGISTRY_HOSTNAME
           value: registry.tanzu.vmware.com
         envFrom:

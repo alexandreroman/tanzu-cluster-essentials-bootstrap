@@ -2,6 +2,14 @@
 
 set -e -o pipefail
 
+# Note script should be idempotent
+
+if [ "$(uname)" == "Darwin" ]; then
+	if command -v xattr &>/dev/null; then
+		xattr -d com.apple.quarantine imgpkg kapp kbld ytt 1>/dev/null 2>&1 || true
+	fi
+fi
+
 ns_name=tanzu-cluster-essentials
 echo "## Creating namespace $ns_name"
 cat <<EOF | kubectl apply -f -
